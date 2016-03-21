@@ -34,7 +34,7 @@ I did update my BIOS Version to 3402 by loading the ROM file from Asus's website
 Things you'll need:
 * A copy of El Capitan, downloaded from the App Store on a legit Mac. There are possibly other ways to get it, but this is the easiest IF you have access to a Mac... I did. It plops a copy in the Applications folder.
 * Unibeast - this is an app that takes that El Capitan install file and mutates it into a bootable disk. Make sure you have a version of Unibeast that supports El Cap, and just click Yes Yes Yes to Clover and UEFI install.
-* Hidden EFI Partition -- What wasn't clear to me, and screwed me for hours upon hours, is that Unibeast (should) create an EFI partition on that boot disk. You can mount this partition by opening terminal, typing diskutil list, then sudo mount -t msdos /dev/disk0s1 /Volumes/EFI [s1 will be whatever it looks like the EFI partition is in the diskutil list for your USB stick.] Check the kexts folder. You MUST have FaceSMC and NullCPUPowerManagement in there for the installer to boot correctly!!
+* Hidden EFI Partition -- What wasn't clear to me, and screwed me for hours upon hours, is that Unibeast (should) create an EFI partition on that boot disk. You can mount this partition by opening terminal, typing diskutil mount /dev/disk0s1 (Make sure you double-check your disk number and partition number by typing diskutil list in terminal; disk0s1 is typically the EFI partition, but there are some systems out there that have their drives managed differently]. Check the kexts folder. You MUST have FakeSMC.kext and NullCPUPowerManagement.kext in there for the installer to boot correctly!!
 * Add cpus=1 to the boot arguments. You can do this with CloverConfigurator or just do it in Clover and go to Options when it boots. This supposedly makes your system more stable by limiting the # of CPU cores it will use. It also makes your system considerably slower. Be sure you remove this boot argument when you actually have El Capitan installed; it took me a few days to realize this, wondering why it seemed relatively slow compared to Windows, and then I found my system was FLYING afterwards.
 
 I've also found that some USB sticks were simply borked. If you've tried all that and still can't get to the installer... try another stick.
@@ -45,10 +45,24 @@ Also, I would use a USB 2.0 port instead of a USB 3.0 port. I know it's slower, 
 Clover is basically the boot management system that starts the installer for OS X and, after it's installed, allows you to boot into it. There are a couple of configurable elements to consider. One is the kexts folder which loads what are essentially drivers upon boot. Another is boot arguments, such as cpus=1 or -v, which is verbose mode (shows what the system is doing when booting).
 config.plist is the file that tells Clover what to do by default. You can edit this file in a text editor or by using a GUI tool like CloverConfigurator, and you can also override config.plist when Clover is actually booted by going into the Options menu.
 
-Kexts are loaded based on the folder Clover expects it to boot, so make sure it's 10.11 -- or just copy the kexts into ALL of the available OSX versions to be certain it never has an issue.
+Kexts are loaded based on the folder Clover expects it to boot, so make sure it's 10.11 -- or just copy the kexts into the "other" folder (/EFI/CLOVER/kexts/other/) whose contents get loaded regardless of the OSX version.
 
 * These are the boot arguments I used when installing OS X: -v -cpus=1 nv_disable=1
-* And these are the boot arguments I use now that it is installed (along with the nVidia graphics driver): -v dart=0 nvda_drv=1 kext-dev-mode=1 rootless=0
+* And these are the boot arguments I use now that it is installed (along with the nVidia graphics driver): -v dart=0 nvda_drv=1
+
+* Another note courtesy corpnewt: Make sure your Clover config.plist contains:
+
+<key>RtVariables</key>
+<dict>
+    <key>CsrActiveConfig</key>
+    <string>0x3</string>
+    <key>BooterConfig</key>
+    <string>0x28</string>
+</dict>
+
+There may be other keys in the RtVariables section, but you need to at least have the CsrActiveConfig and BooterConfig keys and their respective values. They set SIP (System Integrity Protection) to a partially disabled state that allows for the loading of third-party kexts.
+
+(Thanks buddy!)
 
 # Installation
 Before I figured all this stuff out, the installer would constantly freeze for me as soon as it went from verbose mode to the gray/tan screen. But when I was able to continue through all the installation dialogs, I was good to go! However, it took a Very long time. I actually gave it overnight to install.
