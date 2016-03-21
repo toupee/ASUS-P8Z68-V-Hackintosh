@@ -34,11 +34,10 @@ I did update my BIOS Version to 3402 by loading the ROM file from Asus's website
 Things you'll need:
 * A copy of El Capitan, downloaded from the App Store on a legit Mac. There are possibly other ways to get it, but this is the easiest IF you have access to a Mac... I did. It plops a copy in the Applications folder.
 * Unibeast - this is an app that takes that El Capitan install file and mutates it into a bootable disk. Make sure you have a version of Unibeast that supports El Cap, and just click Yes Yes Yes to Clover and UEFI install.
-* Hidden EFI Partition -- What wasn't clear to me, and screwed me for hours upon hours, is that Unibeast (should) create an EFI partition on that boot disk. That's REALLY + How to mount
-* Kexts
-* cpus=1
+* Hidden EFI Partition -- What wasn't clear to me, and screwed me for hours upon hours, is that Unibeast (should) create an EFI partition on that boot disk. You can mount this partition by opening terminal, typing diskutil list, then sudo mount -t msdos /dev/disk0s1 /Volumes/EFI [s1 will be whatever it looks like the EFI partition is in the diskutil list for your USB stick.] Check the kexts folder. You MUST have FaceSMC and NullCPUPowerManagement in there for the installer to boot correctly!!
+* Add cpus=1 to the boot arguments. You can do this with CloverConfigurator or just do it in Clover and go to Options when it boots. This supposedly makes your system more stable by limiting the # of CPU cores it will use. It also makes your system considerably slower. Be sure you remove this boot argument when you actually have El Capitan installed; it took me a few days to realize this, wondering why it seemed relatively slow compared to Windows, and then I found my system was FLYING afterwards.
 
-Some USB sticks were simply borked.
+I've also found that some USB sticks were simply borked. If you've tried all that and still can't get to the installer... try another stick.
 
 Also, I would use a USB 2.0 port instead of a USB 3.0 port. I know it's slower, but I think it alleviated some potential issues.
 
@@ -50,8 +49,13 @@ boot args
 unecessary flags I tried
 
 # Things I needed to know about Clover
-config.plist
-CloverConfigurator
+Clover is basically the boot management system that starts the installer for OS X and, after it's installed, allows you to boot into it. There are a couple of configurable elements to consider. One is the kexts folder which loads what are essentially drivers upon boot. Another is boot arguments, such as cpus=1 or -v, which is verbose mode (shows what the system is doing when booting).
+config.plist is the file that tells Clover what to do by default. You can edit this file in a text editor or by using a GUI tool like CloverConfigurator, and you can also override config.plist when Clover is actually booted by going into the Options menu.
+
+Kexts are loaded based on the folder Clover expects it to boot, so make sure it's 10.11 -- or just copy the kexts into ALL of the available OSX versions to be certain it never has an issue.
+
+These are the boot arguments I used when installing OS X: -v -cpus=1 
+And these are the boot arguments I use now that it is installed (with the nVidia graphics driver): -v ...(edit later)
 
 # Installation
 Took a very long time
@@ -59,15 +63,17 @@ Log was spammed with Language-thing, but trying to fix it did not work
 Ensure that cpus=1 is still enabled for part 2 of installation!
 
 # Post-Install: Graphics
-nVidia Web Drivers
+nVidia Web Drivers did the trick for me. It pretty much instantly boosted my resolution to the expected, and seems to allow games to run decently well. I can tell you that in my VERY quick and amateur testing of running a recent (pretty) game, Firewatch, it does NOT run as well in OS X as it does in Windows. It still is quite playable, but noticeably not as smooth. [On the other hand, Spelunky runs perfectly; see below]
 
 # Things to know about kexts after installing
-KextBeast + Kext Utility
+KextBeast + Kext Utility is your friend. Remember those kexts that we put on the EFI partition? They get loaded when you boot the system, but there's a more permanent place to put kexts. That would be (jargon) S/L or S/L/E. That means either the System/Library folder or the System/Library/Extensions folder. The following two kexts both go in S/L/E.
 
-# Post-Install: Audio
+KextBeast basically just looks for kext files you temporarily place on your desktop and installs them to one of those two locations. You'll then need to refresh your "kext cache" by running the Kext Utility. There are other ways to do this, but this was a reliable method for me.
+
+# Post-Install Kext: Audio
 This motherboard has ALC892 Audio. This was actually the final piece I needed to get working, and I tried a bunch of different crap, but all you need to know is to grab the Mirone AppleHDA.kext and HDAEnabler1.kext and install them with KextBeast (both to System/Library/Extensions) and run KextUtility afterwards to update the cache. 
 
-# Post-Install: USB 3.0
+# Post-Install Kext: USB 3.0
 GenericUSBXHCI.kext - Do the same as above to install. This should get your USB 3.0 ports working. I still have a problem where anything on them is ejected when the system goes to sleep, unfortunately.
 
 # Bonus: Spelunky
@@ -79,7 +85,7 @@ I mostly referenced this Reddit thread (https://www.reddit.com/r/spelunky/commen
 * Make a new wrapper using the 1.9.2 engine  means "[from the Wrapper you've created] Go to 'Wineskin Advanced', [find 'steam' and 'd3dx9' in the list] and push 'Install Software' button'".
 * In winetricks, d3dx9
 * Some say they can install Steam using winetricks but that did not work for me. What also didn't quite work was downloading the latest version of Steam for Mac and running it to install. It got stuck in an endless cycle of updating. At this point, I actually copied the entire Steam directory (minus steamapps) from my Windows PC and copied it all into the Steam folder. At this point, it actually successfully opens.
-* Make sure you have the xbox360ce drivers in the same folder as Wineskin. You can always get back to this by right-clicking your wrapper and 'Open Package Contents.' I had to muck about with the buttons for my Xbox One controller. I've figured out the buttons:
+* Make sure you have the xbox360ce drivers in the same folder as Wineskin. You can always get back to this by right-clicking your wrapper and 'Open Package Contents.' I had to muck about with the buttons in the Xbox360ce.ini file for my Xbox One controller. I've figured out the buttons: A=1 B=2 X=3 Y=4 LB=5 RB=6 Select=7 Start=8 LC=9 RC=10
 * You MIGHT have to install the Xbox One driver for your Mac in general for the controller to work at all (link) I have encountered a bug where if I unplug my controller when OS X is running, it can crash my system instantly. This also happens on a legit Macbook Pro in my experience.
 * Install Spelunky through Steam and it should work!
 * You can then set the Wrapper to launch Spelunky directly using a path like:
