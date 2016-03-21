@@ -58,9 +58,9 @@ These are the boot arguments I used when installing OS X: -v -cpus=1
 And these are the boot arguments I use now that it is installed (with the nVidia graphics driver): -v ...(edit later)
 
 # Installation
-Took a very long time
-Log was spammed with Language-thing, but trying to fix it did not work
-Ensure that cpus=1 is still enabled for part 2 of installation!
+Before I figured all this stuff out, the installer would constantly freeze for me as soon as it went from verbose mode to the gray/tan screen. But when I was able to continue through all the installation dialogs, I was good to go! However, it took a Very long time. I actually gave it overnight to install.
+* For some reason, the Log was spammed with Language-thing, and some have claimed there is a fix for this, but I found that it only caused me more errors. I just let it take its sweet time. It looks like it stalls about 10 minutes in. Just let it go.
+* Ensure that cpus=1 is still enabled when your computer reboots for part 2 of installation! It might fail otherwise.
 
 # Post-Install: Graphics
 nVidia Web Drivers did the trick for me. It pretty much instantly boosted my resolution to the expected, and seems to allow games to run decently well. I can tell you that in my VERY quick and amateur testing of running a recent (pretty) game, Firewatch, it does NOT run as well in OS X as it does in Windows. It still is quite playable, but noticeably not as smooth. [On the other hand, Spelunky runs perfectly; see below]
@@ -98,10 +98,10 @@ USB 3.0 is a little sketchy. I have an external hard drive attached to one that 
 
 # Other Fun Stuff
 Now that you have Mac OS X up and running, you should try out some of these cool programs! These are the reasons I wanted OS X at all...
-Karabiner - This tool will allow you to configure your keyboard. I set Alt key to Command, set Home and End to do what I expect, and disabled Eject.
-f.lux! - Gradually removes blue light from your displays as you get closer to bedtime. Not great for color matching but it does help me fall asleep a bit faster! Try it!
-OpenEmu! - a VERY nice piece of software that displays ROMs in a gorgeous format with box art and alleviates the need to download a half a dozen different emulators with different setups.
-Affinity Designer and Affinity Photo! - This was honestly the main reason I wanted to run OS X. These pieces of software are intended to replace Adobe Illustrator and Adobe Photoshop, and they do a DAMN fine job - I actually prefer them now. So many tools are just easier to use, the interface is really polished, and exporting files is a BREEZE. Also, they're way cheaper - you can get each one for $40 on sale and there is no subscription BS. (Funnily enough, they announced this software is coming to Windows just a couple of weeks after I succeeded in this Hackintosh project... well... I guess that's nice.)
-Final Cut Pro X! - I'm not totally converted from Premiere Pro yet, because I'm an old hand at that, but there are some really innovative things going on here that make it nice to launch for quick projects (and possibly more extensive projects).
-Logic Pro X! - It's just a touch more intuitive than REAPER (free and awesome) - a very polished piece of audio editing software. It's very nice for multi-track editing and recording. It doesn't have the audio editing capabilities of Audition, but it's a far nicer tool for laying out a track.
-Finder - Let's face it, Windows Explorer feels like its stuck in the 1990s, with no tabs, an overloaded shortcuts bar, an overloaded "ribbon" (and I do like the ribbon in Office), no Column view. El Cap also has a fantastic Rename feature. (Windows does do thumbnails a bit better, I'll give it that.)
+* Karabiner - This tool will allow you to configure your keyboard. I set Alt key to Command, set Home and End to do what I expect, and disabled Eject.
+* f.lux! - Gradually removes blue light from your displays as you get closer to bedtime. Not great for color matching but it does help me fall asleep a bit faster! Try it!
+* OpenEmu! - a VERY nice piece of software that displays ROMs in a gorgeous format with box art and alleviates the need to download a half a dozen different emulators with different setups.
+* Affinity Designer and Affinity Photo! - This was honestly the main reason I wanted to run OS X. These pieces of software are intended to replace Adobe Illustrator and Adobe Photoshop, and they do a DAMN fine job - I actually prefer them now. So many tools are just easier to use, the interface is really polished, and exporting files is a BREEZE. Also, they're way cheaper - you can get each one for $40 on sale and there is no subscription BS. (Funnily enough, they announced this software is coming to Windows just a couple of weeks after I succeeded in this Hackintosh project... well... I guess that's nice.)
+* Final Cut Pro X! - I'm not totally converted from Premiere Pro yet, because I'm an old hand at that, but there are some really innovative things going on here that make it nice to launch for quick projects (and possibly more extensive projects).
+* Logic Pro X! - It's just a touch more intuitive than REAPER (free and awesome) - a very polished piece of audio editing software. It's very nice for multi-track editing and recording. It doesn't have the audio editing capabilities of Audition, but it's a far nicer tool for laying out a track.
+* Finder - Let's face it, Windows Explorer feels like its stuck in the 1990s, with no tabs, an overloaded shortcuts bar, an overloaded "ribbon" (and I do like the ribbon in Office), no Column view. El Cap also has a fantastic Rename feature. (Windows does do thumbnails a bit better, I'll give it that.)
