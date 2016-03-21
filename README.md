@@ -15,15 +15,26 @@ I think it's important that I share my build. I think the most important parts a
 * ASUS P8Z68-V Motherboard (NOT PRO/GEN3 or LX)
 * nVidia GTX 970
 * Samsung 840Evo SSD (I decided to completely format and use as the install location)
+* 16GB MicroSD card in a Rocketek adapter is my boot disk, which I just leave inserted as it has Clover on it
+
+Probably less critical, but:
+* 24GB of RAM
+* Several other hard drives (NTFS) - they are accessible, but not writable
+* A WDMyCloud NAS hard drive, which is readable and writable
+* An external USB 3.0 hard drive, formatted for OS X
+* 600W power supply
+* Razer Chroma keyboard (sometimes doesn't work in BIOS, strangely; I keep a second keyboard on deck)
+* LG IPS LED 23EA63 monitor (no issues)
+* Seiki SE39UI04 4k monitor (will crash system if on during boot; turning on after boot, no issues! Weird I know.)
 
 # Motherboard Setup
-BIOS Version
-No patching necessary
+I did update my BIOS Version to 3402 by loading the ROM file from Asus's website onto a blank USB drive, going into Advanced in my BIOS and running the EZFlash2 utility. It then searches the USB stick for the BIOS and updates. I did NOT patch the file, although I wasted a ton of time trying to figure out how to do it. It wasn't necessary. I don't even know if updating my BIOS to this version was, to be honest.
 
 # USB Stick Preparation
 Things you'll need:
-* Unibeast
-* Hidden EFI Partition + How to mount
+* A copy of El Capitan, downloaded from the App Store on a legit Mac. There are possibly other ways to get it, but this is the easiest IF you have access to a Mac... I did. It plops a copy in the Applications folder.
+* Unibeast - this is an app that takes that El Capitan install file and mutates it into a bootable disk. Make sure you have a version of Unibeast that supports El Cap, and just click Yes Yes Yes to Clover and UEFI install.
+* Hidden EFI Partition -- What wasn't clear to me, and screwed me for hours upon hours, is that Unibeast (should) create an EFI partition on that boot disk. That's REALLY + How to mount
 * Kexts
 * cpus=1
 
@@ -54,12 +65,10 @@ nVidia Web Drivers
 KextBeast + Kext Utility
 
 # Post-Install: Audio
-ALC892 Audio
-Mirone AppleHDA Kext+HDAEnabler1 was the only solution
+This motherboard has ALC892 Audio. This was actually the final piece I needed to get working, and I tried a bunch of different crap, but all you need to know is to grab the Mirone AppleHDA.kext and HDAEnabler1.kext and install them with KextBeast (both to System/Library/Extensions) and run KextUtility afterwards to update the cache. 
 
 # Post-Install: USB 3.0
-GenericUSBXHCI.kext
-Karabiner
+GenericUSBXHCI.kext - Do the same as above to install. This should get your USB 3.0 ports working. I still have a problem where anything on them is ejected when the system goes to sleep, unfortunately.
 
 # Bonus: Spelunky
 One of the few Windows-only games I wanted to try and get running on OS X is Spelunky. (If you haven't tried it, it's great fun.) This involved delving even deeper into some jargon and strange program interfaces. Here's what I did to get it working.
@@ -80,3 +89,13 @@ I mostly referenced this Reddit thread (https://www.reddit.com/r/spelunky/commen
 
 # Persisting Issues
 USB 3.0 is a little sketchy. I have an external hard drive attached to one that seems to eject every time the computer goes into sleep. (The good news is, sleeping works!)
+
+# Other Fun Stuff
+Now that you have Mac OS X up and running, you should try out some of these cool programs! These are the reasons I wanted OS X at all...
+Karabiner - This tool will allow you to configure your keyboard. I set Alt key to Command, set Home and End to do what I expect, and disabled Eject.
+f.lux! - Gradually removes blue light from your displays as you get closer to bedtime. Not great for color matching but it does help me fall asleep a bit faster! Try it!
+OpenEmu! - a VERY nice piece of software that displays ROMs in a gorgeous format with box art and alleviates the need to download a half a dozen different emulators with different setups.
+Affinity Designer and Affinity Photo! - This was honestly the main reason I wanted to run OS X. These pieces of software are intended to replace Adobe Illustrator and Adobe Photoshop, and they do a DAMN fine job - I actually prefer them now. So many tools are just easier to use, the interface is really polished, and exporting files is a BREEZE. Also, they're way cheaper - you can get each one for $40 on sale and there is no subscription BS. (Funnily enough, they announced this software is coming to Windows just a couple of weeks after I succeeded in this Hackintosh project... well... I guess that's nice.)
+Final Cut Pro X! - I'm not totally converted from Premiere Pro yet, because I'm an old hand at that, but there are some really innovative things going on here that make it nice to launch for quick projects (and possibly more extensive projects).
+Logic Pro X! - It's just a touch more intuitive than REAPER (free and awesome) - a very polished piece of audio editing software. It's very nice for multi-track editing and recording. It doesn't have the audio editing capabilities of Audition, but it's a far nicer tool for laying out a track.
+Finder - Let's face it, Windows Explorer feels like its stuck in the 1990s, with no tabs, an overloaded shortcuts bar, an overloaded "ribbon" (and I do like the ribbon in Office), no Column view. El Cap also has a fantastic Rename feature. (Windows does do thumbnails a bit better, I'll give it that.)
