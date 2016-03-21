@@ -41,21 +41,14 @@ I've also found that some USB sticks were simply borked. If you've tried all tha
 
 Also, I would use a USB 2.0 port instead of a USB 3.0 port. I know it's slower, but I think it alleviated some potential issues.
 
-# Things to know about kexts before installing
-
-# An explanation of boot arguments
-boot args
-10.11
-unecessary flags I tried
-
 # Things I needed to know about Clover
 Clover is basically the boot management system that starts the installer for OS X and, after it's installed, allows you to boot into it. There are a couple of configurable elements to consider. One is the kexts folder which loads what are essentially drivers upon boot. Another is boot arguments, such as cpus=1 or -v, which is verbose mode (shows what the system is doing when booting).
 config.plist is the file that tells Clover what to do by default. You can edit this file in a text editor or by using a GUI tool like CloverConfigurator, and you can also override config.plist when Clover is actually booted by going into the Options menu.
 
 Kexts are loaded based on the folder Clover expects it to boot, so make sure it's 10.11 -- or just copy the kexts into ALL of the available OSX versions to be certain it never has an issue.
 
-These are the boot arguments I used when installing OS X: -v -cpus=1 
-And these are the boot arguments I use now that it is installed (with the nVidia graphics driver): -v ...(edit later)
+* These are the boot arguments I used when installing OS X: -v -cpus=1 nv_disable=1
+* And these are the boot arguments I use now that it is installed (along with the nVidia graphics driver): -v dart=0 nvda_drv=1 kext-dev-mode=1 rootless=0
 
 # Installation
 Before I figured all this stuff out, the installer would constantly freeze for me as soon as it went from verbose mode to the gray/tan screen. But when I was able to continue through all the installation dialogs, I was good to go! However, it took a Very long time. I actually gave it overnight to install.
